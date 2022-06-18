@@ -12,7 +12,6 @@ import styles from "./AddNewRecipe.module.css";
 
 const AddNewRecipe = () => {
 	const navigate = useNavigate();
-	const uuid = uuidv4();
 	const axios = require("axios").default;
 
 	const [title, setTitle] = useState("");

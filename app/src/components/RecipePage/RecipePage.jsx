@@ -23,7 +23,6 @@ const RecipePage = () => {
 
 	const {
 		cookTime,
-		uuid,
 		description,
 		directions,
 		editDate,
@@ -109,7 +108,7 @@ const RecipePage = () => {
 			{recipe && (
 				<>
 					<a
-						href="#"
+						href="/"
 						onClick={handleGoBack}
 						className={styles.linkBack}
 					>
