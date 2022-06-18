@@ -1,4 +1,5 @@
 .container {
+    position: relative;
     width: 90%;
     margin: auto;
     display: flex;
@@ -8,6 +9,11 @@
     border-radius: 10px;
     background-color: rgba(221, 178, 238, .3);
     padding: 20px 0;
+}
+
+.linkBack  {
+    align-self: flex-start;
+    margin-left: 50px;
 }
 
 .title {

@@ -1,14 +1,26 @@
 import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
+import TooltipPage from "../TooltipPage/Tooltip";
 import React, { useEffect, useState } from "react";
-import { URL, PORT, RECIPES } from "../../constants/constants";
+import { URL, PORT, RECIPES, SPECIALS } from "../../constants/constants";
 
 import styles from "./RecipePage.module.css";
+import { Button } from "@mui/material";
 
 const RecipePage = () => {
 	const id = useParams().id;
+	const navigate = useNavigate();
+
+	const handleGoBack = (e) => {
+		e.preventDefault();
+		navigate(-1);
+	};
+
 	const [recipe, setRecipe] = useState(null);
 	const [posted, setPosted] = useState(null);
 	const [edited, setEdited] = useState(null);
+	const [promo, setPromo] = useState(null);
+
 	const {
 		cookTime,
 		uuid,
@@ -53,35 +65,54 @@ const RecipePage = () => {
 
 	const getRecipeResponse = async (url) => {
 		const res = await getApiResource(url);
+		res && console.log("res", res);
 		res && setRecipe(res);
 	};
 	const handleDate = (date) => {
 		const newDate = date.split(" ");
-		const getDayMonthYear = newDate[0].split("/");
-		const month = getDayMonthYear[0];
-		const monthsName = monthsArray[month - 1];
-		const day = getDayMonthYear[1];
-		const year = getDayMonthYear[2];
-		return day + " " + monthsName + " " + year;
+		if (newDate[0].includes("T")) {
+			const replacedData = newDate[0].split("T");
+			const getDayMonthYear = replacedData[0].split("-");
+			const month = getDayMonthYear[1];
+			const monthsName = monthsArray[month - 1];
+			const day = getDayMonthYear[0];
+			const year = getDayMonthYear[2];
+			return day + " " + monthsName + " " + year;
+		} else {
+			const getDayMonthYear = newDate[0].split("/");
+			const month = getDayMonthYear[0];
+			const monthsName = monthsArray[month - 1];
+			const day = getDayMonthYear[1];
+			const year = getDayMonthYear[2];
+			return day + " " + monthsName + " " + year;
+		}
 	};
 
 	useEffect(() => {
 		getRecipeResponse(URL + PORT + RECIPES + id);
 		postDate && setPosted(handleDate(postDate));
-		console.log("posted", posted);
+		(async function () {
+			const res = await getApiResource(URL + PORT + SPECIALS);
+			return await setPromo(res);
+		})();
 	}, []);
 
-    useEffect(() => {
-        postDate && setPosted(handleDate(postDate));
-		console.log("posted", posted);
-        editDate && setEdited(handleDate(postDate));
-		console.log("edited", edited);
-    },[postDate, editDate]);
+	useEffect(() => {
+		postDate && setPosted(handleDate(postDate));
+		editDate && setEdited(handleDate(postDate));
+	}, [postDate, editDate]);
 
 	return (
 		<div className={styles.container}>
 			{recipe && (
 				<>
+					<a
+						href="#"
+						onClick={handleGoBack}
+						className={styles.linkBack}
+					>
+						<Button variant="outlined">Go back</Button>
+					</a>
 					<div className={styles.title}>{title}</div>
 					<div className={styles.dates}>
 						<div className={styles.postDate}>Posted: {posted}</div>
@@ -89,7 +120,11 @@ const RecipePage = () => {
 					</div>
 					<div className={styles.description}>{description}</div>
 					<div className={styles.image}>
-						<img src={images.medium} alt={title} />
+						{images.small.length ? (
+							<img src={images.medium} alt={title} />
+						) : (
+							<img src="/img/No-Image.jpg" alt={title} />
+						)}
 					</div>
 					<div className={styles.info}>
 						<div className={styles.info__servings}>
@@ -109,15 +144,33 @@ const RecipePage = () => {
 							</h1>
 							<ul className={styles.ingredients__list}>
 								{ingredients?.map(
-									({ amount, measurement, name, uuid }) => (
-										<li
-											key={uuid}
-											className={styles.ingredients__item}
-										>
-											<span className={styles.step}>{amount} {measurement}</span>
-											{" "}{name}
-										</li>
-									)
+									({ amount, measurement, name, uuid }) => {
+										console.log('promo?.find((item) => item.ingredientId === uuid)', promo?.find((item) => item.ingredientId === uuid))
+										return (
+											<li
+												key={uuid}
+												className={
+													styles.ingredients__item
+												}
+											>
+												<span className={styles.step}>
+													{amount} {measurement}
+												</span>{" "}
+												{promo
+													?.map(
+														(item) =>
+															item.ingredientId ===
+															uuid
+													)
+													.includes(true) ?   (
+													<TooltipPage name={name} tooltip={ promo&&promo.find((item) => item.ingredientId === uuid)}/>
+													
+												) : (
+													name
+												)}
+											</li>
+										);
+									}
 								)}
 							</ul>
 						</div>

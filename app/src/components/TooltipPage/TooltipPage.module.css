@@ -1,0 +1,25 @@
+.tooltip__text {
+    font-size: 16px;
+}
+.tooltip__title {
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(128, 128, 128, .4);
+    margin-bottom: 10px;
+}
+
+.tooltip__title::first-letter {
+    text-transform: uppercase;
+}
+
+.tooltip__link {
+    color: blue;
+    font-size: 14px;
+}
+.tooltip__name {
+    color:rgba(128, 128, 128, 1);
+    border-bottom: 1px dotted rgba(128, 128, 128, .8);
+}
+.tooltip {
+    max-width: 300px;
+}
