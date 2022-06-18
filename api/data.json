@@ -482,55 +482,42 @@
       ]
     },
     {
-      "title": "et",
-      "description": "twet",
-      "servings": "123",
-      "cookTime": "123",
-      "prepTime": "123",
-      "uuid": "60aa815a-b514-42ca-9517-b7a4a3b375d6",
+      "uuid": "4f0a3d61-182d-4648-a5d0-e8722aa420cc",
+      "title": "Проверка",
+      "description": "Работоспособности",
       "ingredients": [
         {
-          "uuid": "818e29f0-995c-4594-ae92-61d7006a857d",
-          "amount": null
+          "uuid": "e139f30c-a9dd-436a-b3af-7ea5bb380c67",
+          "amount": 1,
+          "measurement": "кг",
+          "name": "печенья"
+        },
+        {
+          "uuid": "630fb441-3f5f-4320-b584-cc82ed9ab51d",
+          "amount": 2,
+          "measurement": "крема"
         }
       ],
       "directions": [
         {
-          "instructions": "wet",
+          "instructions": "Смешать",
+          "optional": false
+        },
+        {
+          "instructions": "Съесть",
           "optional": false
         }
       ],
+      "servings": "10",
+      "prepTime": "20",
+      "cookTime": "30",
       "images": {
         "small": "",
         "medium": "",
         "full": ""
       },
-      "postDate": "2022-06-17T07:46:25.864Z",
-      "editDate": "2022-06-17T07:46:25.864Z"
-    },
-    {
-      "uuid": "ae311f73-5452-42e6-bc60-1e37998892fc",
-      "title": "фыв",
-      "description": "фывф",
-      "ingredients": [
-        {
-          "uuid": "b87908fc-f5f9-4021-b44f-9d30c005063f",
-          "amount": null
-        }
-      ],
-      "directions": [
-        {
-          "instructions": "ыыы",
-          "optional": false
-        }
-      ],
-      "images": {
-        "small": "",
-        "medium": "",
-        "full": ""
-      },
-      "postDate": "2022-06-17T08:25:34.434Z",
-      "editDate": "2022-06-17T08:25:34.434Z"
+      "postDate": "2022-06-18T15:48:47.954Z",
+      "editDate": "2022-06-18T15:48:47.954Z"
     }
   ],
   "specials": [

@@ -34,7 +34,6 @@ const RecipePage = () => {
 		servings,
 		title,
 	} = recipe || {};
-	console.log('ingredients', ingredients)
 	const monthsArray = [
 		"Jan",
 		"Feb",
@@ -67,7 +66,6 @@ const RecipePage = () => {
 		try {
 			const res = await getApiResource(url); 
 			res && setRecipe(res);
-			res&&console.log('recipe', recipe) 
 		} catch (err) {
 			console.log("error", err);
 		}
@@ -135,10 +133,10 @@ const RecipePage = () => {
 							Servings: {servings}
 						</div>
 						<div className={styles.info__prepTime}>
-							Preparation time: {prepTime}
+							Preparation time: {prepTime} min
 						</div>
 						<div className={styles.info__cookTime}>
-							Cook time: {cookTime}
+							Cook time: {cookTime} min
 						</div>
 					</div>
 					<div className={styles.main}>

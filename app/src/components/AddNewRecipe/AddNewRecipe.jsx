@@ -90,6 +90,9 @@ const AddNewRecipe = () => {
 			description: description,
 			ingredients: ingredientsToSave,
 			directions: directionsToSave,
+			servings: servings,
+			prepTime: prepTime,
+			cookTime: cookTime,
 			images: {
 				small: "",
 				medium: "",
