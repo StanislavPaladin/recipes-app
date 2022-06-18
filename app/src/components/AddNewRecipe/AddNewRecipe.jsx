@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
@@ -82,7 +83,7 @@ const AddNewRecipe = () => {
 		setTimeout(handleGoBack, 1000);
 	};
 
-	const saveRecipe = () => {
+	const saveRecipe = useCallback(() => {
 		setRecipe({
 			uuid: uuidv4(),
 			title: title,
@@ -100,7 +101,7 @@ const AddNewRecipe = () => {
 			postDate: new Date(),
 			editDate: new Date(),
 		});
-	};
+	},[cookTime, description, directionsToSave, prepTime, servings, title, ingredientsToSave]);
 
 	useEffect(() => {
         saveRecipe();
@@ -113,15 +114,7 @@ const AddNewRecipe = () => {
 		servings
 			? setPassedValidate(true)
 			: setPassedValidate(false);
-	}, [
-		title,
-		description,
-		ingredients,
-		directions,
-		prepTime,
-		cookTime,
-		servings,
-	]);
+	}, [title, description, ingredients, directions, prepTime, cookTime, servings, saveRecipe]);
 
 	useEffect(() => {
 		parseIngredients();

@@ -12,7 +12,7 @@ const PageNotFound = () => {
         <div className={styles.container}>
             <h1>Page not found</h1>
             <a
-						href="#"
+						href="/"
 						onClick={handleGoBack}
 						className={styles.linkBack}
 					>
