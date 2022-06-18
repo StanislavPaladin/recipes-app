@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import TooltipPage from "../TooltipPage/Tooltip";
 import React, { useEffect, useState } from "react";
 import { URL, PORT, RECIPES, SPECIALS } from "../../constants/constants";
+import { Button } from "@mui/material";
 
 import styles from "./RecipePage.module.css";
-import { Button } from "@mui/material";
 
 const RecipePage = () => {
 	const id = useParams().id;
@@ -34,7 +34,7 @@ const RecipePage = () => {
 		servings,
 		title,
 	} = recipe || {};
-
+	console.log('ingredients', ingredients)
 	const monthsArray = [
 		"Jan",
 		"Feb",
@@ -64,9 +64,13 @@ const RecipePage = () => {
 	};
 
 	const getRecipeResponse = async (url) => {
-		const res = await getApiResource(url);
-		res && console.log("res", res);
-		res && setRecipe(res);
+		try {
+			const res = await getApiResource(url); 
+			res && setRecipe(res);
+			res&&console.log('recipe', recipe) 
+		} catch (err) {
+			console.log("error", err);
+		}
 	};
 	const handleDate = (date) => {
 		const newDate = date.split(" ");
@@ -143,9 +147,8 @@ const RecipePage = () => {
 								Ingredients
 							</h1>
 							<ul className={styles.ingredients__list}>
-								{ingredients?.map(
+								{ingredients&&ingredients?.map(
 									({ amount, measurement, name, uuid }) => {
-										console.log('promo?.find((item) => item.ingredientId === uuid)', promo?.find((item) => item.ingredientId === uuid))
 										return (
 											<li
 												key={uuid}
@@ -162,9 +165,18 @@ const RecipePage = () => {
 															item.ingredientId ===
 															uuid
 													)
-													.includes(true) ?   (
-													<TooltipPage name={name} tooltip={ promo&&promo.find((item) => item.ingredientId === uuid)}/>
-													
+													.includes(true) ? (
+													<TooltipPage
+														name={name}
+														tooltip={
+															promo &&
+															promo.find(
+																(item) =>
+																	item.ingredientId ===
+																	uuid
+															)
+														}
+													/>
 												) : (
 													name
 												)}
