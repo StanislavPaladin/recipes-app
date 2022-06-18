@@ -96,11 +96,13 @@ const RecipePage = () => {
 			const res = await getApiResource(URL + PORT + SPECIALS);
 			return await setPromo(res);
 		})();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		postDate && setPosted(handleDate(postDate));
 		editDate && setEdited(handleDate(postDate));
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [postDate, editDate]);
 
 	return (
